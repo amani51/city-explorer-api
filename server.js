@@ -25,14 +25,20 @@ server.get("/weather", (req, res) => {
 console.log(req.query.city_name,req.query.lat ,req.query.lot)
   let specificData=findData.data.map(item=>{
 
-    return ([item.weather.description, item.datetime]);
+    return new days(item);;
   })
   res.send(specificData);
-  console.log(req.query);
+  console.log(specificData);
 });
 server.get('*', (req,res)=>{
   res.send("page not found");
 })
+class days {
+  constructor(item) {
+      this.description = item.weather.description;
+      this.datetime = item.datetime;
+  }
+}
 server.listen(PORT, () => {
   console.log(`Hello, I am listening on ${PORT}`);
 });
