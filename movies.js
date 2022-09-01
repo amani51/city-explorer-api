@@ -1,12 +1,17 @@
 "use strict";
 const axios = require("axios");
+const cashMem={};
+
 
 async function moviesHandler(req, res) {
   const query = req.query.city_name;
   const URL = `https://api.themoviedb.org/3/search/movie?api_key=${process.env.MOVIE_API_KEY}&query=${query}`;
-  // console.log(req.query);
-  // console.log(URL);
+if (cashMem[query]!=undefined){
+  console.log('data')
 
+  res.status(200).send(cashMem[query]);
+}else{
+  console.log(' I dont have data')
   axios
     .get(URL)
     .then((responseData) => {
@@ -18,6 +23,8 @@ async function moviesHandler(req, res) {
     .catch((error) => {
       res.status(404).send(error);
     });
+}
+  
 }
 
 class Movies {
