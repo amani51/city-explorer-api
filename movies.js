@@ -18,6 +18,7 @@ if (cashMem[query]!=undefined){
       let specificData = responseData.data.results.map((item) => {
         return new Movies(item);
       });
+      cashMem[query]=specificData;
       res.status(200).send(specificData);
     })
     .catch((error) => {
